@@ -25,3 +25,56 @@
 //     - Copy each row (node->content) into map->points[i]
 // #13 Free the linked list nodes (ft_lstclear), but do not free the row pointers (they are now in map->points)
 // #14 Return the map
+
+
+Old main for testing mlx lib and map parsing.
+int main(void)
+{
+
+		void	*mlx;
+	void	*window;
+
+	// Initialize MiniLibX
+	mlx = mlx_init();
+	if (!mlx)
+		return (1);
+
+	// Create a new window: width, height, title
+	window = mlx_new_window(mlx, 800, 600, "MiniLibX Test");
+	if (!window)
+		return (1);
+
+	// Keep the window open until manually closed
+	mlx_loop(mlx);
+	return (0);
+	t_map *map;
+	int fd = open("test_maps/42.fdf", O_RDONLY);
+
+	map = parse_map(fd);
+	close(fd);
+	if (!map)
+	{
+		printf("Failed to parse map\n");
+		return (1);
+	}
+	printf("Map parsed successfully!\n");
+	printf("Width: %d, Height: %d\n", map->width, map->height);
+
+	// print out the map points (only z-values)
+	for (int y = 0; y < map->height; y++)
+	{
+		for (int x = 0; x < map->width; x++)
+		{
+			printf("%3d ", map->points[y][x].z);
+		}
+		printf("\n");
+	}
+
+	// cleanup
+	for (int i = 0; i < map->height; i++)
+		free(map->points[i]);
+	free(map->points);
+	free(map);
+
+	return (0);
+}

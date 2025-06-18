@@ -96,54 +96,73 @@ t_map *parse_map(int fd)
 	free_nodes_keep_content(&rows_list);
 	return (map);
 }
-// tester main
+// Places pixel at x, y, with a color.
+void	put_pixel(t_vars *vars, int x, int y, int color)
+{
+	char *dst;
+
+	dst = vars->img_data + (y * vars->line_len + x * (vars->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
 int main(void)
 {
+	t_vars vars; //Variables for mlx environment
 
-		void	*mlx;
-	void	*window;
+	// Initialize mlx and window
+	vars.mlx = mlx_init();
+	if (!vars.mlx)
+	{
+		printf("mlx init failed\n");
+		return (0);
+	}
+	vars.win = mlx_new_window(vars.mlx, 800, 600, "FDF");
+	if (!vars.win)
+	{
+		printf("window init failed\n");
+		return (0);
+	}
 
-	// Initialize MiniLibX
-	mlx = mlx_init();
-	if (!mlx)
-		return (1);
-
-	// Create a new window: width, height, title
-	window = mlx_new_window(mlx, 800, 600, "MiniLibX Test");
-	if (!window)
-		return (1);
-
-	// Keep the window open until manually closed
-	mlx_loop(mlx);
-	return (0);
-	t_map *map;
+	// Parse the map
 	int fd = open("test_maps/42.fdf", O_RDONLY);
-
-	map = parse_map(fd);
+	vars.map = parse_map(fd);
+	if (!vars.map)
+	{
+		printf("map parsing failed\n");
+		return (0);
+	}
 	close(fd);
-	if (!map)
-	{
-		printf("Failed to parse map\n");
-		return (1);
-	}
-	printf("Map parsed successfully!\n");
-	printf("Width: %d, Height: %d\n", map->width, map->height);
 
-	// print out the map points (only z-values)
-	for (int y = 0; y < map->height; y++)
+	// Create image
+	vars.img = mlx_new_image(vars.mlx, 800, 600);
+	if (!vars.img)
 	{
-		for (int x = 0; x < map->width; x++)
-		{
-			printf("%3d ", map->points[y][x].z);
-		}
-		printf("\n");
+		printf("img init failed\n");
+		return (0);
 	}
+	vars.img_data = mlx_get_data_addr(vars.img, &vars.bpp, &vars.line_len, &vars.endian); // Pointer to the first byte of the image pixel data
+	if (!vars.img_data)
+	{
+		printf("img_data failed\n");
+		return (0);
+	}
+	// Draw a single pixel in the image
+	printf("Before pixel\n");
+	put_pixel(&vars, 100, 100, 0x00FF0000); // Red pixel at (100, 100)
+	printf("After pixel\n");
+
+	// Display the image in the window
+	printf("Before placing image\n");
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
+	printf("After placing image\n");
+
+    mlx_loop(vars.mlx);
 
 	// cleanup
-	for (int i = 0; i < map->height; i++)
-		free(map->points[i]);
-	free(map->points);
-	free(map);
+	// for (int i = 0; i < vars.map->height; i++)
+	// 	free(vars.map->points[i]);
+	// free(vars.map->points);
+	// free(vars.map);
 
 	return (0);
 }
