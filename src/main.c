@@ -1,36 +1,9 @@
 #include "fdf.h"
 #include "get_next_line.h"
 #include "libft.h"
+#include "mlx.h"
 #include <stdio.h> //Printf - testing
 #include "fcntl.h" //Read
-
-// PARSING THE MAP
-//ninit t_map with 0, 0.
-// #1 Loop with get_next_line(fd) until line == NULL
-// #2 Split the returned line -> char **values = ft_split(line, ' ')
-// #3 Count the number of values in the line -> line_width = word_count(values)
-// #4 Set/validate map width:
-//     - If map.width == 0, set map.width = line_width
-//     - Else if line_width != map.width, the map is invalid (inconsistent row length), return error
-// #5 Allocate a row of t_points -> t_point *row = malloc(sizeof(t_point) * line_width);
-// #6 Fill the row:
-//     - For each value (x = 0 to line_width):
-//         - row[x].x = x
-//         - row[x].y = current_height (line number)
-//         - row[x].z = ft_atoi(values[x])
-// #7 Store the row in a linked list:
-//     - Use ft_lstnew(row) to create a new list node
-//     - Add it to the back of the list with ft_lstadd_back()
-// #8 Increment current_height after each line (this will become map.height)
-// #9 Free the original line and the split values
-//
-// After the loop:
-// #10 Set map.height = ft_lstsize(linked_list)
-// #11 Allocate map->points = malloc(sizeof(t_point *) * map->height);
-// #12 Iterate through the linked list:
-//     - Copy each row (node->content) into map->points[i]
-// #13 Free the linked list nodes (ft_lstclear), but do not free the row pointers (they are now in map->points)
-// #14 Return the map
 
 // helper to count the number of extracted values (width of map)
 int word_count(char **values)
@@ -42,7 +15,7 @@ int word_count(char **values)
 		i++;
 	return (i);
 }
-// ft_lstclear but does not clear the content of the node
+// ft_lstclear but does not clear the content variable of the node
 void free_nodes_keep_content(t_list **lst)
 {
     t_list *tmp;
@@ -126,8 +99,25 @@ t_map *parse_map(int fd)
 // tester main
 int main(void)
 {
+
+		void	*mlx;
+	void	*window;
+
+	// Initialize MiniLibX
+	mlx = mlx_init();
+	if (!mlx)
+		return (1);
+
+	// Create a new window: width, height, title
+	window = mlx_new_window(mlx, 800, 600, "MiniLibX Test");
+	if (!window)
+		return (1);
+
+	// Keep the window open until manually closed
+	mlx_loop(mlx);
+	return (0);
 	t_map *map;
-	int fd = open("test_maps/10-70.fdf", O_RDONLY);
+	int fd = open("test_maps/42.fdf", O_RDONLY);
 
 	map = parse_map(fd);
 	close(fd);

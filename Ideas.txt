@@ -1,0 +1,27 @@
+// PARSING THE MAP
+// init t_map with 0, 0.
+// #1 Loop with get_next_line(fd) until line == NULL
+// #2 Split the returned line -> char **values = ft_split(line, ' ')
+// #3 Count the number of values in the line -> line_width = word_count(values)
+// #4 Set/validate map width:
+//     - If map.width == 0, set map.width = line_width
+//     - Else if line_width != map.width, the map is invalid (inconsistent row length), return error
+// #5 Allocate a row of t_points -> t_point *row = malloc(sizeof(t_point) * line_width);
+// #6 Fill the row:
+//     - For each value (x = 0 to line_width):
+//         - row[x].x = x
+//         - row[x].y = current_height (line number)
+//         - row[x].z = ft_atoi(values[x])
+// #7 Store the row in a linked list:
+//     - Use ft_lstnew(row) to create a new list node
+//     - Add it to the back of the list with ft_lstadd_back()
+// #8 Increment current_height after each line (this will become map.height)
+// #9 Free the original line and the split values
+//
+// After the loop:
+// #10 Set map.height = ft_lstsize(linked_list)
+// #11 Allocate map->points = malloc(sizeof(t_point *) * map->height);
+// #12 Iterate through the linked list:
+//     - Copy each row (node->content) into map->points[i]
+// #13 Free the linked list nodes (ft_lstclear), but do not free the row pointers (they are now in map->points)
+// #14 Return the map

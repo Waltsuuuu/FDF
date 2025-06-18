@@ -1,6 +1,6 @@
 # Compiler
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes
+CFLAGS = -Wall -Wextra -Werror -Iincludes -I$(MLX_DIR)
 
 # Executable
 NAME = fdf
@@ -58,6 +58,11 @@ GNL_SRCS = \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c
 
+# === MINILIBX MACOS===
+MLX_DIR = minilibx
+MLX_LIB = $(MLX_DIR)/libmlx.dylib
+MLX_FLAGS = -rpath @executable_path/$(MLX_DIR) -framework AppKit -framework Metal -framework MetalKit
+
 # === FDF ===
 SRC_DIR = src
 FDF_SRCS = \
@@ -68,16 +73,23 @@ SRCS = $(FDF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS)
 OBJS = $(SRCS:.c=.o)
 
 # === RULES ===
-all: $(NAME)
+all: minilibx $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+minilibx: $(MLX_LIB)
+
+$(MLX_LIB):
+	$(MAKE) -C $(MLX_DIR)
+
+$(NAME): $(OBJS) minilibx
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
+	install_name_tool -change libmlx.dylib @rpath/libmlx.dylib $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
+	$(MAKE) -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
