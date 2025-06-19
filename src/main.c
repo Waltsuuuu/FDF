@@ -1,9 +1,4 @@
 #include "fdf.h"
-#include "get_next_line.h"
-#include "libft.h"
-#include "mlx.h"
-#include <stdio.h> //Printf - testing
-#include "fcntl.h" //Read
 
 // helper to count the number of extracted values (width of map)
 int word_count(char **values)
@@ -15,7 +10,7 @@ int word_count(char **values)
 		i++;
 	return (i);
 }
-// ft_lstclear but does not clear the content variable of the node
+// like ft_lstclear but does not clear the content variable of the node
 void free_nodes_keep_content(t_list **lst)
 {
     t_list *tmp;
@@ -104,27 +99,44 @@ void	put_pixel(t_vars *vars, int x, int y, int color)
 	dst = vars->img_data + (y * vars->line_len + x * (vars->bpp / 8));
 	*(unsigned int *)dst = color;
 }
-
-int main(void)
+// Initialize mlx and prepare a window.
+int	init_mlx(t_vars *vars, int width, int height, char *title)
 {
-	t_vars vars; //Variables for mlx environment
-
-	// Initialize mlx and window
-	vars.mlx = mlx_init();
-	if (!vars.mlx)
+	vars->mlx = mlx_init();
+	if (!vars->mlx)
 	{
 		printf("mlx init failed\n");
 		return (0);
 	}
-	vars.win = mlx_new_window(vars.mlx, 800, 600, "FDF");
-	if (!vars.win)
+	vars->win = mlx_new_window(vars->mlx, width, height, title);
+	if (!vars->win)
 	{
 		printf("window init failed\n");
 		return (0);
 	}
+	vars->img = mlx_new_image(vars->mlx, 800, 600);
+	if (!vars->img)
+	{
+		printf("img init failed\n");
+		return (0);
+	}
+	vars->img_data = mlx_get_data_addr(vars->img, &vars->bpp, &vars->line_len, &vars->endian); // Pointer to the first byte of the image pixel data
+	if (!vars->img_data)
+	{
+		printf("img_data failed\n");
+		return (0);
+	}
+	return (1);
+}
 
-	// Parse the map
+int main(void)
+{
+	t_vars vars;
 	int fd = open("test_maps/42.fdf", O_RDONLY);
+
+	if ((init_mlx(&vars, 800, 600, "FDF") == 0))
+		return (0);
+
 	vars.map = parse_map(fd);
 	if (!vars.map)
 	{
@@ -133,28 +145,11 @@ int main(void)
 	}
 	close(fd);
 
-	// Create image
-	vars.img = mlx_new_image(vars.mlx, 800, 600);
-	if (!vars.img)
-	{
-		printf("img init failed\n");
-		return (0);
-	}
-	vars.img_data = mlx_get_data_addr(vars.img, &vars.bpp, &vars.line_len, &vars.endian); // Pointer to the first byte of the image pixel data
-	if (!vars.img_data)
-	{
-		printf("img_data failed\n");
-		return (0);
-	}
 	// Draw a single pixel in the image
-	printf("Before pixel\n");
 	put_pixel(&vars, 100, 100, 0x00FF0000); // Red pixel at (100, 100)
-	printf("After pixel\n");
 
 	// Display the image in the window
-	printf("Before placing image\n");
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
-	printf("After placing image\n");
 
     mlx_loop(vars.mlx);
 

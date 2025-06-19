@@ -1,6 +1,12 @@
 #ifndef FDF_H
 # define FDF_H
 
+#include "get_next_line.h"
+#include "libft.h"
+#include "mlx.h"
+#include <stdio.h> //Printf - testing
+#include "fcntl.h" //Read
+
 // holds the data of a single point.
 typedef struct s_point
 {
