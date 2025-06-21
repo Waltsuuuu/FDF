@@ -117,7 +117,7 @@ int	init_mlx(t_vars *vars, int width, int height, char *title)
 		printf("window init failed\n");
 		return (0);
 	}
-	vars->img = mlx_new_image(vars->mlx, 1200, 800);
+	vars->img = mlx_new_image(vars->mlx, width, height);
 	if (!vars->img)
 	{
 		printf("img init failed\n");
