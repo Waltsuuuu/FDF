@@ -61,7 +61,11 @@ GNL_SRCS = \
 # === FDF ===
 SRC_DIR = src
 FDF_SRCS = \
-	$(SRC_DIR)/main.c
+	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/parse_map.c \
+	$(SRC_DIR)/init_mlx.c \
+	$(SRC_DIR)/render.c \
+	$(SRC_DIR)/projection.c
 
 # === OBJS ===
 SRCS = $(FDF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS)

@@ -4,9 +4,9 @@
 #include "get_next_line.h"
 #include "libft.h"
 #include "mlx.h"
-#include "stdio.h" //Printf - testing
-#include "fcntl.h" //Read
-#include "math.h" // sin & cos
+#include "stdio.h" // Printf - testing
+#include "fcntl.h" // Read
+#include "math.h" //  sin & cos
 
 #define TILE_SIZE 	30
 #define Z_SCALE		10.0
@@ -55,5 +55,24 @@ typedef struct s_line
 	int err;
 	int e2;
 }	t_line;
+
+/* -- parse_map.c -- */
+t_map *parse_map(int fd);
+int word_count(char **values);
+void free_nodes_keep_content(t_list **lst);
+
+/* -- init_mlx.c -- */
+int	init_mlx(t_vars *vars, int width, int height, char *title);
+
+/* -- render.c -- */
+void	put_pixel(t_vars *vars, int x, int y, int color);
+void	init_line(t_line *line, int x0, int y0, int x1, int y1);
+void	draw_line(t_vars *vars, int x0, int y0, int x1, int y1, int color);
+void	draw_grid(t_vars *vars);
+
+/* -- projection.c -- */
+t_point	project_2d(t_point p, t_vars *vars);
+t_point project_iso(t_point p);
+void calculate_offset(t_vars *vars);
 
 #endif
