@@ -1,8 +1,23 @@
-# Compiler
+# === Platform Auto-Detection ===
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S),Darwin)
+	MLX_DIR := minilibx
+	MLX_LIB := $(MLX_DIR)/libmlx.dylib
+	MLX_FLAGS := -rpath @executable_path/$(MLX_DIR) -framework AppKit -framework Metal -framework MetalKit
+	PLATFORM := mac
+else
+	MLX_DIR := minilibx-linux
+	MLX_LIB := $(MLX_DIR)/libmlx_Linux.a
+	MLX_FLAGS := -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
+	PLATFORM := linux
+endif
+
+# === Compiler & Flags ===
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iincludes -I$(MLX_DIR)
 
-# Executable
+# === Executable ===
 NAME = fdf
 
 # === LIBFT ===
@@ -71,29 +86,14 @@ FDF_SRCS = \
 SRCS = $(FDF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS)
 OBJS = $(SRCS:.c=.o)
 
-# === MLX // Default to Linux  ===
-MLX_DIR ?= minilibx-linux
-MLX_LIB ?= $(MLX_DIR)/libmlx_Linux.a
-MLX_FLAGS ?= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
-PLATFORM ?= linux
-
-# === Default Build: Linux ===
-
+# === Build Targets ===
 all: minilibx $(NAME)
 
-# Alias for linux
-linux:
-	@$(MAKE) all
-
-# MLX build for macOS
-mac:
-	$(MAKE) MLX_DIR=minilibx \
-		MLX_LIB=minilibx/libmlx.dylib \
-		MLX_FLAGS="-rpath @executable_path/minilibx -framework AppKit -framework Metal -framework MetalKit" \
-		PLATFORM=mac \
-		all
-
-# === Build Rules ===
+$(NAME): $(OBJS) minilibx
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
+ifeq ($(PLATFORM),mac)
+	install_name_tool -change libmlx.dylib @rpath/libmlx.dylib $(NAME)
+endif
 
 minilibx: $(MLX_LIB)
 
@@ -103,22 +103,17 @@ minilibx/libmlx.dylib:
 minilibx-linux/libmlx_Linux.a:
 	$(MAKE) -C minilibx-linux
 
-$(NAME): $(OBJS) minilibx
-	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
-ifeq ($(PLATFORM),mac)
-	install_name_tool -change libmlx.dylib @rpath/libmlx.dylib $(NAME)
-endif
-
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# === Cleanup ===
 clean:
 	rm -f $(OBJS)
-	$(MAKE) -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
+	$(MAKE) -C $(MLX_DIR) clean
 
 re: fclean all
 
-.PHONY: all clean fclean re mac linux
+.PHONY: all clean fclean re
