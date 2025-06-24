@@ -58,11 +58,6 @@ GNL_SRCS = \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c
 
-# === MINILIBX MACOS===
-MLX_DIR = minilibx
-MLX_LIB = $(MLX_DIR)/libmlx.dylib
-MLX_FLAGS = -rpath @executable_path/$(MLX_DIR) -framework AppKit -framework Metal -framework MetalKit
-
 # === FDF ===
 SRC_DIR = src
 FDF_SRCS = \
@@ -72,17 +67,43 @@ FDF_SRCS = \
 SRCS = $(FDF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS)
 OBJS = $(SRCS:.c=.o)
 
-# === RULES ===
+# === MLX // Default to Linux  ===
+MLX_DIR ?= minilibx-linux
+MLX_LIB ?= $(MLX_DIR)/libmlx_Linux.a
+MLX_FLAGS ?= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
+PLATFORM ?= linux
+
+# === Default Build: Linux ===
+
 all: minilibx $(NAME)
+
+# Alias for linux
+linux:
+	@$(MAKE) all
+
+# MLX build for macOS
+mac:
+	$(MAKE) MLX_DIR=minilibx \
+		MLX_LIB=minilibx/libmlx.dylib \
+		MLX_FLAGS="-rpath @executable_path/minilibx -framework AppKit -framework Metal -framework MetalKit" \
+		PLATFORM=mac \
+		all
+
+# === Build Rules ===
 
 minilibx: $(MLX_LIB)
 
-$(MLX_LIB):
-	$(MAKE) -C $(MLX_DIR)
+minilibx/libmlx.dylib:
+	$(MAKE) -C minilibx
+
+minilibx-linux/libmlx_Linux.a:
+	$(MAKE) -C minilibx-linux
 
 $(NAME): $(OBJS) minilibx
 	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
+ifeq ($(PLATFORM),mac)
 	install_name_tool -change libmlx.dylib @rpath/libmlx.dylib $(NAME)
+endif
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -96,4 +117,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re mac linux
