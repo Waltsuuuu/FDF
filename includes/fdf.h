@@ -59,13 +59,24 @@ typedef struct s_line
 }	t_line;
 
 /* -- parse_map.c -- */
-t_map *parse_map(int fd);
-t_map *init_map(void);
-int word_count(char **values);
-void free_nodes_keep_content(t_list **lst);
+t_map	*parse_map(int fd);
+t_map	*init_map(void);
+t_list	*read_all_rows(int fd, int *map_width, int *current_height);
+t_point	**build_points_array(t_list *rows_list, int current_height);
+
+/* -- parse_map_utils.c -- */
+int		word_count(char **values);
+void	free_nodes_keep_content(t_list **lst);
+void	free_line_and_values(char *line, char **values);
+
+/* -- parse_map_row_utils.c -- */
+int		check_or_set_width(int *map_width, int line_width);
+t_point	*alloc_row(int line_width);
+void	fill_row(t_point *row, char **values, int current_height);
+int		parse_and_add_row(t_list **rows_list, char *line, int current_height, int *map_width);
 
 /* -- init_mlx.c -- */
-int	init_mlx(t_vars *vars, int width, int height, char *title);
+int		init_mlx(t_vars *vars, int width, int height, char *title);
 
 /* -- render.c -- */
 void	put_pixel(t_vars *vars, int x, int y, int color);
@@ -74,11 +85,11 @@ void	draw_line(t_vars *vars, int x0, int y0, int x1, int y1, int color);
 void	draw_grid(t_vars *vars);
 
 /* -- projection.c -- */
-void calculate_offset(t_vars *vars);
-void auto_scale_and_center(t_vars *vars);
-t_point project_scaled_iso(t_point p, t_vars *vars);
-t_point project_iso(t_point p);
-t_point project_point(t_point in, t_vars *vars);
+void	calculate_offset(t_vars *vars);
+void	auto_scale_and_center(t_vars *vars);
+t_point	project_scaled_iso(t_point p, t_vars *vars);
+t_point	project_iso(t_point p);
+t_point	project_point(t_point in, t_vars *vars);
 
 
 
