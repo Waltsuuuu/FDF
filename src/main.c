@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	close(fd);
 
 	// computes zoom and centering
-	auto_scale_and_center(&vars);
+	scale_and_center(&vars);
 
 	// Draw the grid / wireframe
 	draw_grid(&vars);

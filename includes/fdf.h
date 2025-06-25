@@ -86,7 +86,7 @@ void	draw_grid(t_vars *vars);
 
 /* -- projection.c -- */
 void	calculate_offset(t_vars *vars);
-void	auto_scale_and_center(t_vars *vars);
+void	scale_and_center(t_vars *vars);
 t_point	project_scaled_iso(t_point p, t_vars *vars);
 t_point	project_iso(t_point p);
 t_point	project_point(t_point in, t_vars *vars);

@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:51:20 by wheino            #+#    #+#             */
-/*   Updated: 2025/06/25 17:36:37 by wheino           ###   ########.fr       */
+/*   Updated: 2025/06/25 18:55:58 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void get_iso_bounds(t_vars *vars, double b[4])
     scan_iso_bounds(vars, b);
 }
 
-void auto_scale_and_center(t_vars *vars)
+void scale_and_center(t_vars *vars)
 {
     double  b[4];
     double  sx;
