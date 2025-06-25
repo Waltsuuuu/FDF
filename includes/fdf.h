@@ -60,6 +60,7 @@ typedef struct s_line
 
 /* -- parse_map.c -- */
 t_map *parse_map(int fd);
+t_map *init_map(void);
 int word_count(char **values);
 void free_nodes_keep_content(t_list **lst);
 

@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:40:26 by wheino            #+#    #+#             */
-/*   Updated: 2025/06/24 16:00:18 by wheino           ###   ########.fr       */
+/*   Updated: 2025/06/25 18:06:16 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,9 @@ t_map *parse_map(int fd)
 	int		i; // iterator
 	
 	rows_list = NULL;
-	map = malloc(sizeof(t_map));
+	map = init_map();
 	if (!map)
-		return (NULL); 
-	// Add cleanup here
-	map->width = 0;
-	map->height = 0;
+		return(NULL);
 	current_height = 0;
 	while ((line = get_next_line(fd)) != NULL) // #1
 	{
@@ -76,6 +73,16 @@ t_map *parse_map(int fd)
 		node = node->next;
 	}
 	free_nodes_keep_content(&rows_list);
+	return (map);
+}
+
+t_map *init_map(void)
+{
+	t_map *map = malloc(sizeof(t_map));
+	if (!map)
+		return (NULL); 
+	map->width = 0;
+	map->height = 0;
 	return (map);
 }
 
