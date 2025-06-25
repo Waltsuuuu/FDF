@@ -8,10 +8,11 @@
 #include "fcntl.h" // Read
 #include "math.h" //  sin & cos
 
-#define TILE_SIZE 	30
-#define Z_SCALE		10.0
-#define	WIN_WIDTH 	1200
-#define	WIN_HEIGHT	800
+#define Z_SCALE		0.5
+#define	WIN_WIDTH 	2500
+#define	WIN_HEIGHT	1500
+#define ISO_ANGLE	0.52399 // 30 degrees in radians
+#define PADDING		100.0
 
 // holds the data of a single point.
 typedef struct s_point
@@ -40,8 +41,9 @@ typedef struct s_vars {
 	int		endian;		// Endianness of the pixel data: 0 means little endian (color bytes stored from least to most significant),
                     	// 1 means big endian (color bytes stored from most to least significant).
                     	// This affects how color values are written into the image buffer.
-	int		offset_x;	//
+	int		offset_x;
 	int		offset_y;
+	double	zoom;
 	t_map	*map;
 } t_vars;
 
@@ -71,8 +73,12 @@ void	draw_line(t_vars *vars, int x0, int y0, int x1, int y1, int color);
 void	draw_grid(t_vars *vars);
 
 /* -- projection.c -- */
-t_point	project_2d(t_point p, t_vars *vars);
-t_point project_iso(t_point p);
 void calculate_offset(t_vars *vars);
+void auto_scale_and_center(t_vars *vars);
+t_point project_scaled_iso(t_point p, t_vars *vars);
+t_point project_iso(t_point p);
+t_point project_point(t_point in, t_vars *vars);
+
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:49:10 by wheino            #+#    #+#             */
-/*   Updated: 2025/06/24 16:01:06 by wheino           ###   ########.fr       */
+/*   Updated: 2025/06/25 17:42:42 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 // Draw the grid
 void	draw_grid(t_vars *vars)
 {
-	int		x, y;
-	t_point	a, b;
+	int		x;
+	int		y;
+	t_point	a;
+	t_point	b;
 
 	y = 0;
 	while (y < vars->map->height)
@@ -24,22 +26,15 @@ void	draw_grid(t_vars *vars)
 		x = 0;
 		while (x < vars->map->width)
 		{
-			a = project_iso(vars->map->points[y][x]);
-			a.x += vars->offset_x;
-			a.y += vars->offset_y;
-
+			a = project_scaled_iso(vars->map->points[y][x], vars);
 			if (x < vars->map->width - 1)
 			{
-				b = project_iso(vars->map->points[y][x + 1]);
-				b.x += vars->offset_x;
-				b.y += vars->offset_y;
+				b = project_scaled_iso(vars->map->points[y][x + 1], vars);
 				draw_line(vars, a.x, a.y, b.x, b.y, 0xFFFFFF);
 			}
 			if (y < vars->map->height - 1)
 			{
-				b = project_iso(vars->map->points[y + 1][x]);
-				b.x += vars->offset_x;
-				b.y += vars->offset_y;
+				b = project_scaled_iso(vars->map->points[y + 1][x], vars);
 				draw_line(vars, a.x, a.y, b.x, b.y, 0xFFFFFF);
 			}
 			x++;
@@ -47,13 +42,13 @@ void	draw_grid(t_vars *vars)
 		y++;
 	}
 }
-// Places pixel at x, y, with a color.
+
 void	put_pixel(t_vars *vars, int x, int y, int color)
 {
 	char *dst;
 
 	if (x < 0 || y < 0 || x >= WIN_WIDTH || y >= WIN_HEIGHT)
-    	return;
+		return ;
 	dst = vars->img_data + (y * vars->line_len + x * (vars->bpp / 8));
 	*(unsigned int *)dst = color;
 }
@@ -82,7 +77,7 @@ void	draw_line(t_vars *vars, int x0, int y0, int x1, int y1, int color)
 	{
 		put_pixel(vars, x0, y0, color);
 		if (x0 == x1 && y0 == y1)
-			break;
+			break ;
 		line.e2 = 2 * line.err;
 		if (line.e2 >= line.dy)
 		{

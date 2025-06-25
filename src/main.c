@@ -1,15 +1,18 @@
 #include "fdf.h"
 
-int main(void)
+int main(int argc, char **argv)
 {
 	t_vars vars;
 
+	if(argc != 2)
+		return 0;
+
 	// Init mlx
-	if ((init_mlx(&vars, 1200, 800, "FDF") == 0))
+	if ((init_mlx(&vars, WIN_WIDTH, WIN_HEIGHT, "FDF") == 0))
 		return (0);
 
 	// Parse map
-	int fd = open("test_maps/42.fdf", O_RDONLY);
+	int fd = open(argv[1], O_RDONLY);
 	vars.map = parse_map(fd);
 	if (!vars.map)
 	{
@@ -18,8 +21,8 @@ int main(void)
 	}
 	close(fd);
 
-	// Offset calculation for isometric projection
-	calculate_offset(&vars);
+	// computes zoom and centering
+	auto_scale_and_center(&vars);
 
 	// Draw the grid / wireframe
 	draw_grid(&vars);

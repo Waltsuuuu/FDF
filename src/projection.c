@@ -6,57 +6,105 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:51:20 by wheino            #+#    #+#             */
-/*   Updated: 2025/06/24 15:52:34 by wheino           ###   ########.fr       */
+/*   Updated: 2025/06/25 17:36:37 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point	project_2d(t_point p, t_vars *vars)
+static void init_bounds(double b[4])
 {
-	t_point projected;
-
-	projected.x = p.x * TILE_SIZE + vars->offset_x;
-	projected.y = p.y * TILE_SIZE + vars->offset_y;
-	projected.z = p.z;
-	return (projected);
+    b[0] = 1e9;
+    b[1] = -1e9;
+    b[2] = 1e9;
+    b[3] = -1e9;
 }
 
-t_point project_iso(t_point p)
+static void scan_iso_bounds(t_vars *vars, double b[4])
 {
-	t_point res;
-	double angle = 0.523599; // ~30 degrees
-
-	double x = p.x * TILE_SIZE;
-	double y = p.y * TILE_SIZE;
-	double z = p.z * Z_SCALE;
-
-
-	res.x = (x - y) * cos(angle);
-	res.y = (x + y) * sin(angle) - z;
-	res.z = p.z;
-	return res;
-}
-
-void calculate_offset(t_vars *vars)
-{
-    int x, y;
-    double min_x = 1e9, max_x = -1e9;
-    double min_y = 1e9, max_y = -1e9;
+    int     x;
+    int     y;
     t_point p;
+    t_point raw;
 
-    for (y = 0; y < vars->map->height; y++)
+    y = 0;
+    while (y < vars->map->height)
     {
-        for (x = 0; x < vars->map->width; x++)
+        x = 0;
+        while (x < vars->map->width)
         {
-            p = project_iso(vars->map->points[y][x]);
-            if (p.x < min_x) min_x = p.x;
-            if (p.x > max_x) max_x = p.x;
-            if (p.y < min_y) min_y = p.y;
-            if (p.y > max_y) max_y = p.y;
+            raw = vars->map->points[y][x];
+            
+            raw.z *= Z_SCALE;
+            p = project_iso(raw);
+            if (p.x < b[0])
+                b[0] = p.x;
+            if (p.x > b[1])
+                b[1] = p.x;
+            if (p.y < b[2])
+                b[2] = p.y;
+            if (p.y > b[3])
+                b[3] = p.y;
+            x++;
         }
+        y++;
     }
+}
 
-    vars->offset_x = (WIN_WIDTH - (max_x - min_x)) / 2 - min_x;
-    vars->offset_y = (WIN_HEIGHT - (max_y - min_y)) / 2 - min_y;
+static void get_iso_bounds(t_vars *vars, double b[4])
+{
+    init_bounds(b);
+    scan_iso_bounds(vars, b);
+}
+
+void auto_scale_and_center(t_vars *vars)
+{
+    double  b[4];
+    double  sx;
+    double  sy;
+
+    vars->zoom = 1.0;
+    get_iso_bounds(vars, b);
+    sx = (WIN_WIDTH - 2 * PADDING) / (b[1] - b[0]);
+    sy = (WIN_HEIGHT - 2 * PADDING) / (b[3] - b[2]);
+    if (sx < sy)
+        vars->zoom = sx;
+    else
+        vars->zoom = sy;
+    get_iso_bounds(vars, b);
+    vars->offset_x = (WIN_WIDTH - (b[1] - b[0]) * vars->zoom) / 2
+                   - b[0] * vars->zoom;
+    vars->offset_y = (WIN_HEIGHT - (b[3] - b[2]) * vars->zoom) / 2
+                   - b[2] * vars->zoom;
+}
+
+t_point project_scaled_iso(t_point pt, t_vars *vars)
+{
+    double  sx;
+    double  sy;
+    double  sz;
+    t_point res;
+
+    sx = pt.x * vars->zoom;
+    sy = pt.y * vars->zoom;
+    sz = pt.z * Z_SCALE * vars->zoom;
+    res = project_iso((t_point){(int)sx, (int)sy, (int)sz});
+    res.x += vars->offset_x;
+    res.y += vars->offset_y;
+    return (res);
+}
+
+/* basic isometric projection */
+t_point project_iso(t_point pt)
+{
+    t_point res;
+    double  cos_a;
+    double  sin_a;
+
+    cos_a = cos(ISO_ANGLE);
+    sin_a = sin(ISO_ANGLE);
+    res.x = (pt.x - pt.y) * cos_a;
+    res.y = (pt.x + pt.y) * sin_a - pt.z;
+    res.z = pt.z;
+    return (res);
 }
