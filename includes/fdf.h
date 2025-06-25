@@ -9,10 +9,38 @@
 #include "math.h" //  sin & cos
 
 #define Z_SCALE		0.5
-#define	WIN_WIDTH 	2500
-#define	WIN_HEIGHT	1500
+#define	WIN_WIDTH 	1000
+#define	WIN_HEIGHT	800
 #define ISO_ANGLE	0.52399 // 30 degrees in radians
 #define PADDING		100.0
+
+#ifdef __APPLE__
+# define KEY_ESC       53
+# define KEY_UP        126
+# define KEY_DOWN      125
+# define KEY_LEFT      123
+# define KEY_RIGHT     124
+# define KEY_ROT_CCW   12   // Q key
+# define KEY_ROT_CW    14   // E key
+# define KEY_TILT_UP    13    // W
+# define KEY_TILT_DOWN   1    // S
+#else
+# define KEY_ESC       65307
+# define KEY_UP        65362
+# define KEY_DOWN      65364
+# define KEY_LEFT      65361
+# define KEY_RIGHT     65363
+# define KEY_ROT_CCW   113  // q key
+# define KEY_ROT_CW    101  // e key
+# define KEY_TILT_UP   119  // w
+# define KEY_TILT_DOWN 115  // s
+#endif
+
+#define PAN_STEP		20
+#define ZOOM_FACTOR		1.1
+#define ROT_STEP		(M_PI / 12.0)  // 15° per press
+#define TILT_STEP		(M_PI / 12.0)  // 15° per press
+
 
 // holds the data of a single point.
 typedef struct s_point
@@ -44,6 +72,12 @@ typedef struct s_vars {
 	int		offset_x;
 	int		offset_y;
 	double	zoom;
+	double  pan_x;
+	double  pan_y;
+	double  base_off_x;
+	double  base_off_y;
+    double  rot_angle;    // current rotation (radians)
+	double  rot_x_angle;    // tilt (up/down) angle in radians
 	t_map	*map;
 } t_vars;
 
@@ -87,10 +121,15 @@ void	draw_grid(t_vars *vars);
 /* -- projection.c -- */
 void	calculate_offset(t_vars *vars);
 void	scale_and_center(t_vars *vars);
+void get_iso_bounds(t_vars *vars, double b[4]);
 t_point	project_scaled_iso(t_point p, t_vars *vars);
 t_point	project_iso(t_point p);
 t_point	project_point(t_point in, t_vars *vars);
 
+/* -- controls.c -- */
+// fdf.h
+int  handle_key(int keycode, void *param);
+int  handle_mouse(int button, int x, int y, void *param);
 
 
 #endif

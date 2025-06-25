@@ -23,6 +23,8 @@ int main(int argc, char **argv)
 
 	// computes zoom and centering
 	scale_and_center(&vars);
+	vars.zoom = 10.0;
+
 
 	// Draw the grid / wireframe
 	draw_grid(&vars);
@@ -30,6 +32,18 @@ int main(int argc, char **argv)
 	// Display the image to the window
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
 
+	vars.pan_x       = 0;
+	vars.pan_y       = 0;
+	vars.base_off_x  = 0;
+	vars.base_off_y  = 0;
+    vars.rot_angle   = 0.0;
+    vars.rot_x_angle = 0.0;
+
+    // Full keypresses (so arrow keys work on macOS & X11):
+    mlx_hook(vars.win, 2, 1L << 0, handle_key,   &vars);
+    // Mouse scroll events:
+    mlx_mouse_hook(vars.win, handle_mouse, &vars);
+	
 	// Keep the mlx window running
     mlx_loop(vars.mlx);
 

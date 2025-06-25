@@ -82,7 +82,8 @@ FDF_SRCS = \
 	$(SRC_DIR)/parse_map/parse_map_row_utils.c \
 	$(SRC_DIR)/init_mlx.c \
 	$(SRC_DIR)/render.c \
-	$(SRC_DIR)/projection.c
+	$(SRC_DIR)/projection.c \
+	$(SRC_DIR)/controls.c
 
 # === OBJS ===
 SRCS = $(FDF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS)
