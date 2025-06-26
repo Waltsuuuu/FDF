@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:49:10 by wheino            #+#    #+#             */
-/*   Updated: 2025/06/25 17:42:42 by wheino           ###   ########.fr       */
+/*   Updated: 2025/06/26 03:06:08 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	draw_grid(t_vars *vars)
 			if (x < vars->map->width - 1)
 			{
 				b = project_scaled_iso(vars->map->points[y][x + 1], vars);
-				draw_line(vars, a.x, a.y, b.x, b.y, 0xFFFFFF);
+				draw_line(vars, a.x, a.y, b.x, b.y, 0x00FF00);
 			}
 			if (y < vars->map->height - 1)
 			{
 				b = project_scaled_iso(vars->map->points[y + 1][x], vars);
-				draw_line(vars, a.x, a.y, b.x, b.y, 0xFFFFFF);
+				draw_line(vars, a.x, a.y, b.x, b.y, 0x00FF00);
 			}
 			x++;
 		}

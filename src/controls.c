@@ -48,6 +48,10 @@ int handle_key(int keycode, void *param) {
         vars->rot_x_angle -= TILT_STEP;
     else if (keycode == KEY_TILT_DOWN)
         vars->rot_x_angle += TILT_STEP;
+	
+	// Close program (esc)
+	else if (keycode == KEY_ESC)
+        exit(0);
 
     else
         return 0;
