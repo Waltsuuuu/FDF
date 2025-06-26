@@ -25,3 +25,47 @@
 //     - Copy each row (node->content) into map->points[i]
 // #13 Free the linked list nodes (ft_lstclear), but do not free the row pointers (they are now in map->points)
 // #14 Return the map
+
+random 2022 discord message checklist
+
+Pre-reqs:
+-NORMINETTE, also the obvious fails from the norm pdf that need to be manually checked like header: no unused includes or function prototypes/structs and that there are no "2 instruction in one line" (for example ‘variable = function(variable++);’)
+-Makefile rules and relinking, make sure to run ‘make’ (no unnecessary recompile or relink) and ‘make re’ twice in a row
+
+Try to read:
+-empty file
+-file with just newlines
+-file with just newlines and spaces/tabs
+-file with just spaces
+-file with just tabs
+-fdf executable file (./fdf fdf)
+-Makefile
+-a directory
+-a valid map with no access rights
+-too many/few args
+
+Modify a map:
+-only one point
+-only 2 points
+-map with uneven lines
+-map with random characters (ascii and non)
+-map with max int/min int
+-map with a very low and a very high value in the same map
+-map with all values really high or low
+-map with some empty lines in between lines
+-map with some/all spaces replaced by newlines/tabs
+
+Memory handling:
+-run leaks while fdf is running, use all user controls (for example zoom)
+-add -fsanitize=address to libft's and fdf's makefile (see Satu's forum post), run fdf, use all user controls and move the map outside the window
+-add "system(“leaks fdf”);" before every exit, run fdf with valid and invalid maps from 2.
+
+5. Drawing:
+-there seem to be no pixels missing from the lines drawn
+-the original aspect ratio of the map is intact (the 42 map should have a height difference of 10), user can modify it to look nicer, but you should be able to represent the original map
+-there are at least 2 different projections
+
+Smoothness(?):
+-copy the map of mars 6 times (or world map etc., found one in sadawi's github) in one file and see that it still runs nicely
+
+There can be no segfault, ever, lines must be drawn, almost everything else is up to you!
