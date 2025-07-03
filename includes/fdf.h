@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/03 19:37:58 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/03 21:11:43 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define PADDING	100.0
 
 # define OK		0
-# define ERROR	1
+# define ERROR	-1
 
 // holds the data of a single point.
 typedef struct s_point
@@ -70,13 +70,13 @@ void	free_and_destroy(t_vars *vars);
 /* -- parse_map.c -- */
 t_map	*parse_map(int fd);
 t_map	*init_map_variables(void);
-t_list	*read_all_rows(int fd, int *map_width, int *current_height);
-t_point	**build_points_array(t_list *rows_list, int current_height);
+t_list	*read_map_rows(int fd, int *map_width, int *current_height);
+t_point	**convert_list_to_2d_points_array(t_list *rows_list, int current_height);
 
 /* -- parse_map_utils.c -- */
 int		word_count(char **values);
 void	keep_content_free_nodes(t_list **lst);
-void	free_content_free_nodes(t_list **lst);
+void	free_nodes_and_content(t_list **lst);
 int		free_row_line_values(t_point *row, char *line, char **values);
 void	free_map(t_map *map);
 

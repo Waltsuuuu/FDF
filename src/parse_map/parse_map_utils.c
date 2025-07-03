@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:34:36 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/03 19:25:26 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/03 21:00:23 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	keep_content_free_nodes(t_list **lst)
 
 	if (!lst)
 		return ;
-	while (*lst)
+	while (*lst != NULL)
 	{
 		tmp = (*lst)->next;
 		free(*lst);
@@ -38,13 +38,13 @@ void	keep_content_free_nodes(t_list **lst)
 	*lst = NULL;
 }
 
-void	free_content_free_nodes(t_list **lst)
+void	free_nodes_and_content(t_list **lst)
 {
 	t_list	*tmp;
 
 	if (!lst)
 		return ;
-	while (*lst)
+	while (*lst != NULL)
 	{
 		tmp = (*lst)->next;
 		free((*lst)->content);
@@ -58,14 +58,14 @@ int	free_row_line_values(t_point *row, char *line, char **values)
 {
 	int	i;
 
-	if (row)
+	if (row != NULL)
 		free(row);
-	if (line)
+	if (line != NULL)
 		free(line);
-	if (values)
+	if (values != NULL)
 	{
 		i = 0;
-		while (values[i])
+		while (values[i] != NULL)
 			free(values[i++]);
 		free(values);
 	}

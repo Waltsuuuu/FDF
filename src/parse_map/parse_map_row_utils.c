@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:37:05 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/03 19:22:49 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/03 23:01:47 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ t_point	*alloc_row(int line_width)
 // Fill one row from the split values
 void	fill_row(t_point *row, char **values, int current_height)
 {
-	int	x;
+	int		x;
+	char	*str;
+	int		i;
 
 	x = 0;
-	while (values[x])
+	i = 0;
+	while (values[x] != NULL)
 	{
 		row[x].x = x;
 		row[x].y = current_height;

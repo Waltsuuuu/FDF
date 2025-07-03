@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:40:26 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/03 19:37:44 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/03 21:11:32 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ t_map	*parse_map(int fd)
 	map = init_map_variables();
 	if (!map)
 		return (NULL);
-	rows_list = read_all_rows(fd, &map->width, &current_height);
+	rows_list = read_map_rows(fd, &map->width, &current_height);
 	if (!rows_list)
 	{
 		free_map(map);
 		return (NULL);
 	}
 	map->height = current_height;
-	map->points = build_points_array(rows_list, current_height);
+	map->points = convert_list_to_2d_points_array(rows_list, current_height);
 	if (!map->points)
 	{
-		free_content_free_nodes(&rows_list);
+		free_nodes_and_content(&rows_list);
 		free_map(map);
 		return (NULL);
 	}
@@ -53,33 +53,33 @@ t_map	*init_map_variables(void)
 }
 
 // Read all lines, build up the linked list of rows
-t_list	*read_all_rows(int fd, int *map_width, int *current_height)
+t_list	*read_map_rows(int fd, int *map_width, int *current_height)
 {
 	t_list	*rows_list;
 	char	*line;
-	int		h;
-	int		res;
+	int		y_index;
+	int		error_check;
 
 	rows_list = NULL;
-	h = 0;
+	y_index = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		res = parse_and_add_row(&rows_list, line, h, map_width);
-		if (res < 0)
+		error_check = parse_and_add_row(&rows_list, line, y_index, map_width);
+		if (error_check == ERROR)
 		{
-			free_content_free_nodes(&rows_list);
+			free_nodes_and_content(&rows_list);
 			return (NULL);
 		}
-		h++;
+		y_index++;
 		line = get_next_line(fd);
 	}
-	*current_height = h;
+	*current_height = y_index;
 	return (rows_list);
 }
 
 // Turn the linked list into the final array of point-rows
-t_point	**build_points_array(t_list *rows_list, int current_height)
+t_point	**convert_list_to_2d_points_array(t_list *rows_list, int current_height)
 {
 	t_point	**points;
 	t_list	*node;
@@ -90,7 +90,7 @@ t_point	**build_points_array(t_list *rows_list, int current_height)
 		return (NULL);
 	node = rows_list;
 	i = 0;
-	while (node)
+	while (node != NULL)
 	{
 		points[i] = node->content;
 		i++;
