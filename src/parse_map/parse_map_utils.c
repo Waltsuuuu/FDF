@@ -6,49 +6,87 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:34:36 by wheino            #+#    #+#             */
-/*   Updated: 2025/06/25 18:45:33 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/03 19:25:26 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 // Count the number of extracted values (width of map)
-int word_count(char **values)
+int	word_count(char **values)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(values[i] != NULL)
+	while (values[i] != NULL)
 		i++;
 	return (i);
 }
-// Free nodes, but not the content variable (ft_lstclear variation)
-void free_nodes_keep_content(t_list **lst)
-{
-    t_list *tmp;
 
-    if (!lst)
-        return;
-    while (*lst)
-    {
-        tmp = (*lst)->next;
-        free(*lst);
-        *lst = tmp;
-    }
-    *lst = NULL;
+void	keep_content_free_nodes(t_list **lst)
+{
+	t_list	*tmp;
+
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free(*lst);
+		*lst = tmp;
+	}
+	*lst = NULL;
 }
 
-// Free the GNL line and its split tokens
-void free_line_and_values(char *line, char **values)
+void	free_content_free_nodes(t_list **lst)
 {
-    int i;
+	t_list	*tmp;
 
-    free(line);
-    i = 0;
-    while (values[i])
-    {
-        free(values[i]);
-        i++;
-    }
-    free(values);
+	if (!lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free((*lst)->content);
+		free(*lst);
+		*lst = tmp;
+	}
+	*lst = NULL;
+}
+
+int	free_row_line_values(t_point *row, char *line, char **values)
+{
+	int	i;
+
+	if (row)
+		free(row);
+	if (line)
+		free(line);
+	if (values)
+	{
+		i = 0;
+		while (values[i])
+			free(values[i++]);
+		free(values);
+	}
+	return (ERROR);
+}
+
+void	free_map(t_map *map)
+{
+	int	i;
+
+	if (!map)
+		return ;
+	i = 0;
+	if (map->points != NULL)
+	{
+		while (i < map->height)
+		{
+			free(map->points[i]);
+			i++;
+		}
+		free(map->points);
+	}
+	free(map);
 }

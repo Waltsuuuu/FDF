@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 12:39:03 by wheino            #+#    #+#             */
-/*   Updated: 2025/05/12 12:26:37 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/03 14:51:50 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		return (dstsize + src_len);
 	i = 0;
 	while ((src[i] != '\0' && (dst_len + i < dstsize - 1)))
-	{	
+	{
 		dst[i + dst_len] = src[i];
 		i++;
 	}

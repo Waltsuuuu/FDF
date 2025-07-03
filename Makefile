@@ -1,17 +1,6 @@
-# === Platform Auto-Detection ===
-UNAME_S := $(shell uname -s)
-
-ifeq ($(UNAME_S),Darwin)
-	MLX_DIR := minilibx
-	MLX_LIB := $(MLX_DIR)/libmlx.dylib
-	MLX_FLAGS := -rpath @executable_path/$(MLX_DIR) -framework AppKit -framework Metal -framework MetalKit
-	PLATFORM := mac
-else
-	MLX_DIR := minilibx-linux
-	MLX_LIB := $(MLX_DIR)/libmlx_Linux.a
-	MLX_FLAGS := -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
-	PLATFORM := linux
-endif
+MLX_DIR := minilibx-linux
+MLX_LIB := $(MLX_DIR)/libmlx_Linux.a
+MLX_FLAGS := -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 # === Compiler & Flags ===
 CC = cc
@@ -73,6 +62,12 @@ GNL_SRCS = \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c
 
+# === PRINTF ===
+PRINTF_DIR = printf
+PRINTF_SRCS = \
+	$(PRINTF_DIR)/ft_printf.c \
+	$(PRINTF_DIR)/ft_printf_utils.c
+
 # === FDF ===
 SRC_DIR = src
 FDF_SRCS = \
@@ -81,12 +76,10 @@ FDF_SRCS = \
 	$(SRC_DIR)/parse_map/parse_map_utils.c \
 	$(SRC_DIR)/parse_map/parse_map_row_utils.c \
 	$(SRC_DIR)/init_mlx.c \
-	$(SRC_DIR)/render.c \
-	$(SRC_DIR)/projection.c \
-	$(SRC_DIR)/controls.c
+	$(SRC_DIR)/test_functions/map_test.c
 
 # === OBJS ===
-SRCS = $(FDF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS)
+SRCS = $(FDF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS) $(PRINTF_SRCS)
 OBJS = $(SRCS:.c=.o)
 
 # === Build Targets ===
@@ -94,14 +87,8 @@ all: minilibx $(NAME)
 
 $(NAME): $(OBJS) minilibx
 	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
-ifeq ($(PLATFORM),mac)
-	install_name_tool -change libmlx.dylib @rpath/libmlx.dylib $(NAME)
-endif
 
 minilibx: $(MLX_LIB)
-
-minilibx/libmlx.dylib:
-	$(MAKE) -C minilibx
 
 minilibx-linux/libmlx_Linux.a:
 	$(MAKE) -C minilibx-linux

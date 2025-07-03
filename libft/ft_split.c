@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 10:13:22 by wheino            #+#    #+#             */
-/*   Updated: 2025/06/12 20:26:55 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/03 14:51:15 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static unsigned int	word_count(char *s, char c)
 	wc = 0;
 	newline = ft_strchr(s, '\n');
 	if (newline)
-    	*newline = '\0';
+		*newline = '\0';
 	while (s[i])
 	{
 		while (s[i] == c)
 			i++;
-        if (s[i] && s[i] != c)
+		if (s[i] && s[i] != c)
 		{
 			wc++;
 			while (s[i] && s[i] != c)

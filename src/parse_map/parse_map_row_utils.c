@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:37:05 by wheino            #+#    #+#             */
-/*   Updated: 2025/06/25 18:52:32 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/03 19:22:49 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ int	check_or_set_width(int *map_width, int line_width)
 	if (*map_width == 0)
 		*map_width = line_width;
 	else if (*map_width != line_width)
-		return (1);
-	return (0);
+	{
+		ft_printf("MAP PARSING ERROR: Inconsistent line length!\n");
+		return (ERROR);
+	}
+	return (OK);
 }
 
 // Allocate one row of t_point
@@ -55,22 +58,22 @@ int	parse_and_add_row(t_list **rows_list,
 	char	**values;
 	int		line_width;
 	t_point	*row;
+	t_list	*node;
 
 	values = ft_split(line, ' ');
+	if (!values)
+		return (free_row_line_values(NULL, line, NULL));
 	line_width = word_count(values);
-	if (check_or_set_width(map_width, line_width))
-	{
-		free_line_and_values(line, values);
-		return (-1);
-	}
+	if (check_or_set_width(map_width, line_width) == ERROR)
+		return (free_row_line_values(NULL, line, values));
 	row = alloc_row(line_width);
 	if (!row)
-	{
-		free_line_and_values(line, values);
-		return (-1);
-	}
+		return (free_row_line_values(NULL, line, values));
 	fill_row(row, values, current_height);
-	ft_lstadd_back(rows_list, ft_lstnew(row));
-	free_line_and_values(line, values);
-	return (0);
+	node = ft_lstnew(row);
+	if (!node)
+		return (free_row_line_values(row, line, values));
+	ft_lstadd_back(rows_list, node);
+	free_row_line_values(NULL, line, values);
+	return (OK);
 }
