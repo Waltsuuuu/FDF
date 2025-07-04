@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/03 21:11:43 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/04 14:08:30 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,12 @@ typedef struct s_vars
 	int		bpp;
 	int		line_len;
 	int		endian;
-	int		offset_x;
-	int		offset_y;
-	double	zoom;
 	t_map	*map;
 }			t_vars;
 
 /* -- test_functions -- */
 void	print_map(t_map *map);
 
-void	free_and_destroy(t_vars *vars);
 
 /* -- parse_map.c -- */
 t_map	*parse_map(int fd);
@@ -85,9 +81,13 @@ int		check_or_set_width(int *map_width, int line_width);
 t_point	*alloc_row(int line_width);
 void	fill_row(t_point *row, char **values, int current_height);
 int		parse_and_add_row(t_list **rows_list, char *line,
-			int current_height, int *map_width);
-
+int		current_height, int *map_width);
+	
 /* -- init_mlx.c -- */
 int		init_mlx(t_vars *vars, int width, int height, char *title);
 
-#endif
+/* -- cleanup.c -- */
+int		free_and_destroy(t_vars *vars);
+	
+	#endif
+	

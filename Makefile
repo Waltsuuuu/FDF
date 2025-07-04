@@ -76,7 +76,8 @@ FDF_SRCS = \
 	$(SRC_DIR)/parse_map/parse_map_utils.c \
 	$(SRC_DIR)/parse_map/parse_map_row_utils.c \
 	$(SRC_DIR)/init_mlx.c \
-	$(SRC_DIR)/test_functions/map_test.c
+	$(SRC_DIR)/test_functions/map_test.c \
+	$(SRC_DIR)/cleanup.c 
 
 # === OBJS ===
 SRCS = $(FDF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS) $(PRINTF_SRCS)
