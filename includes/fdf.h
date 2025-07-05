@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/05 21:48:07 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/05 22:12:56 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,20 @@ typedef struct s_vars
 	int		y_offset;
 }			t_vars;
 
+// holds the variables for line drawing algorithm
+typedef	struct s_line
+{
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
+}			t_line;
+
+
 /* -- test_functions -- */
 void	print_map(t_map *map);
-
 
 /* -- parse_map.c -- */
 t_map	*open_and_parse_map(const char *path);
@@ -95,6 +106,10 @@ t_point	project_iso(t_point point, t_vars *vars);
 
 /* -- draw_pixel.c -- */
 void	put_pixel(t_vars *vars, int x, int y, int color);
+
+/* -- draw_line.c -- */
+void	draw_line(t_vars *vars, int x0, int y0, int x1, int y1, int color);
+void	init_line(t_line *line, int x0, int y0, int x1, int y1);
 
 /* -- cleanup.c -- */
 int		free_and_destroy(t_vars *vars);
