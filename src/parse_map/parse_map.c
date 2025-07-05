@@ -6,11 +6,24 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:40:26 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/03 21:11:32 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/05 18:38:02 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+t_map	*open_and_parse_map(const char *path)
+{
+	int		fd;
+	t_map	*map;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	map = parse_map(fd);
+	close(fd);
+	return (map);
+}
 
 t_map	*parse_map(int fd)
 {

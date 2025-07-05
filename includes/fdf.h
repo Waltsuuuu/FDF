@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/04 14:08:30 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/05 18:41:06 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	print_map(t_map *map);
 
 
 /* -- parse_map.c -- */
+t_map	*open_and_parse_map(const char *path);
 t_map	*parse_map(int fd);
 t_map	*init_map_variables(void);
 t_list	*read_map_rows(int fd, int *map_width, int *current_height);
