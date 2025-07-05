@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/05 18:41:06 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/05 18:59:36 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef struct s_vars
 	int		line_len;
 	int		endian;
 	t_map	*map;
+	int		scale;
+	int		x_offset;
+	int		y_offset;
 }			t_vars;
 
 /* -- test_functions -- */
