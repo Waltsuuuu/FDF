@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/05 18:59:36 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/05 21:48:07 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,12 @@ int		current_height, int *map_width);
 	
 /* -- init_mlx.c -- */
 int		init_mlx(t_vars *vars, int width, int height, char *title);
+
+/* -- projection.c -- */
+t_point	project_iso(t_point point, t_vars *vars);
+
+/* -- draw_pixel.c -- */
+void	put_pixel(t_vars *vars, int x, int y, int color);
 
 /* -- cleanup.c -- */
 int		free_and_destroy(t_vars *vars);
