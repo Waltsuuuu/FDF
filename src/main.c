@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:50:30 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/05 22:49:42 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/06 19:24:05 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int main(int argc, char **argv)
 		return (free_and_destroy(&vars));
 	print_map(vars.map); // Testing only
 	draw_map(&vars);
+	ft_printf("\nscale = %d\n", vars.scale); // Testing only
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
     mlx_loop(vars.mlx);
 	free_and_destroy(&vars);
