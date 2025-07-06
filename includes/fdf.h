@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/05 22:47:03 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/06 16:21:35 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@
 # include <math.h> //  sin & cos
 
 # define Z_SCALE	0.5
-# define WIN_WIDTH	1000
-# define WIN_HEIGHT	800
+# define WIN_WIDTH	2000
+# define WIN_HEIGHT	1500
 # define ISO_ANGLE	0.52399 // 30 degrees in radians
-# define PADDING	100.0
 
 # define OK		0
 # define ERROR	-1
@@ -96,13 +95,14 @@ int		check_or_set_width(int *map_width, int line_width);
 t_point	*alloc_row(int line_width);
 void	fill_row(t_point *row, char **values, int current_height);
 int		parse_and_add_row(t_list **rows_list, char *line,
-int		current_height, int *map_width);
+			int	current_height, int *map_width);
 	
 /* -- init_mlx.c -- */
 int		init_mlx(t_vars *vars, int width, int height, char *title);
 
 /* -- projection.c -- */
 t_point	project_iso(t_point point, t_vars *vars);
+void	calculate_scale_and_offset(t_vars *vars);
 
 /* -- draw_pixel.c -- */
 void	put_pixel(t_vars *vars, int x, int y, int color);

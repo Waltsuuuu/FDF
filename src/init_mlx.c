@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:45:00 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/05 19:02:00 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/06 15:42:07 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,5 @@ int	init_mlx(t_vars *vars, int width, int height, char *title)
 			&vars->line_len, &vars->endian);
 	if (!vars->img_data)
 		return (ERROR);
-	vars->scale = 20;
-	vars->x_offset = WIN_WIDTH / 2;
-	vars->y_offset = WIN_HEIGHT / 4;
 	return (OK);
 }
