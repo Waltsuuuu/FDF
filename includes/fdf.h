@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/07 22:11:38 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:33:42 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define ERROR	-1
 
 # define ESC_KEY 65307
+# define KEY_UP 65362
+# define KEY_DOWN 65364
 
 typedef struct s_point
 {
