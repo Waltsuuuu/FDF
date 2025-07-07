@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/07 16:46:39 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 21:11:40 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,17 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "mlx.h"
-# include <stdio.h> // Printf - testing
-# include <fcntl.h> // Read
-# include <math.h> //  sin & cos
+# include <fcntl.h>
+# include <math.h> 
 
 # define Z_SCALE	0.5
 # define WIN_WIDTH	2000
 # define WIN_HEIGHT	1500
-# define ISO_ANGLE	0.52399 // 30 degrees in radians
+# define ISO_ANGLE	0.52399
 
 # define OK		0
 # define ERROR	-1
 
-// holds the data of a single point.
 typedef struct s_point
 {
 	int	x;
@@ -37,7 +35,6 @@ typedef struct s_point
 	int	z;
 }			t_point;
 
-// holds the map data, height, width and all the points.
 typedef struct s_map
 {
 	int		width;
@@ -45,7 +42,6 @@ typedef struct s_map
 	t_point	**points;
 }			t_map;
 
-// holds the MLX state -> MLX pointers (init, window, image, map data, etc.)
 typedef struct s_vars
 {
 	void	*mlx;
@@ -61,7 +57,6 @@ typedef struct s_vars
 	int		y_offset;
 }			t_vars;
 
-// holds the variables for line drawing algorithm
 typedef	struct s_line
 {
 	int	dx;
@@ -72,9 +67,6 @@ typedef	struct s_line
 	int	e2;
 }			t_line;
 
-
-/* -- test_functions -- */
-void	print_map(t_map *map);
 
 /* -- parse_map.c -- */
 t_map	*open_and_parse_map(const char *path);
