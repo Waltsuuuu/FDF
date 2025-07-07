@@ -6,45 +6,50 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 21:49:30 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/05 22:08:19 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:10:38 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_line(t_vars *vars, int x0, int y0, int x1, int y1, int color)
+void	draw_line(t_vars *vars, t_point p0, t_point p1, int color)
 {
 	t_line	line;
-	
-	init_line(&line, x0, y0, x1, y1);
+
+	line.x0 = p0.x;
+	line.y0 = p0.y;
+	line.x1 = p1.x;
+	line.y1 = p1.y;
+
+	init_line(&line);
 	while (1)
 	{
-		put_pixel(vars, x0, y0, color);
-		if (x0 == x1 && y0 == y1)
+		put_pixel(vars, line.x0, line.y0, color);
+		if (line.x0 == line.x1 && line.y0 == line.y1)
 			break ;
 		line.e2 = 2 * line.err;
 		if (line.e2 >= line.dy)
 		{
 			line.err += line.dy;
-			x0 += line.sx;
+			line.x0 += line.sx;
 		}
 		if (line.e2 <= line.dx)
 		{
 			line.err += line.dx;
-			y0 += line.sy;
+			line.y0 += line.sy;
 		}
 	}
 }
 
-void	init_line(t_line *line, int x0, int y0, int x1, int y1)
+void	init_line(t_line *line)
 {
-	line->dx = abs(x1 - x0);
-	line->dy = -abs(y1 -y0);
-	if (x0 < x1)
+	line->dx = abs(line->x1 - line->x0);
+	line->dy = -abs(line->y1 - line->y0);
+	if (line->x0 < line->x1)
 		line->sx = 1;
 	else
 		line->sx = -1;
-	if (y0 < y1)
+	if (line->y0 < line->y1)
 		line->sy = 1;
 	else
 		line->sy = -1;

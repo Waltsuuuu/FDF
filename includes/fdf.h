@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/07 21:53:58 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:11:38 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ typedef struct s_vars
 
 typedef struct s_line
 {
+	int	x0;
+	int	y0;
+	int	x1;
+	int	y1;
 	int	dx;
 	int	dy;
 	int	sx;
@@ -104,8 +108,8 @@ void	calculate_scale_and_offset(t_vars *vars);
 void	put_pixel(t_vars *vars, int x, int y, int color);
 
 /* -- draw_line.c -- */
-void	draw_line(t_vars *vars, int x0, int y0, int x1, int y1, int color);
-void	init_line(t_line *line, int x0, int y0, int x1, int y1);
+void	draw_line(t_vars *vars, t_point p0, t_point p1, int color);
+void	init_line(t_line *line);
 
 /* -- draw_map.c -- */
 void	draw_map(t_vars *vars);
