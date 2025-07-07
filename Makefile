@@ -78,6 +78,7 @@ FDF_SRCS = \
 	$(SRC_DIR)/init_mlx.c \
 	$(SRC_DIR)/test_functions/map_test.c \
 	$(SRC_DIR)/projection.c \
+	$(SRC_DIR)/scale_and_offset.c \
 	$(SRC_DIR)/draw_pixel.c \
 	$(SRC_DIR)/draw_line.c \
 	$(SRC_DIR)/draw_map.c \

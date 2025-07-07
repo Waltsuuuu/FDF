@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/06 16:21:35 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 16:46:39 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ int		init_mlx(t_vars *vars, int width, int height, char *title);
 
 /* -- projection.c -- */
 t_point	project_iso(t_point point, t_vars *vars);
+
+/* -- scale_and_offset.c -- */
 void	calculate_scale_and_offset(t_vars *vars);
 
 /* -- draw_pixel.c -- */
