@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 22:30:45 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/05 22:50:35 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 21:13:41 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	draw_map(t_vars *vars)
 	int		y;
 	int		x;
 	t_point	current;
-	
+
 	y = 0;
 	while (y < vars->map->height)
 	{
@@ -47,5 +47,5 @@ void	draw_neighbors(t_vars *vars, int x, int y, t_point current)
 		neighbor = project_iso(vars->map->points[y + 1][x], vars);
 		draw_line(vars, current.x, current.y,
 			neighbor.x, neighbor.y, 0xFFFFFF);
-	}	
+	}
 }
