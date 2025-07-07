@@ -6,13 +6,12 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:37:05 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/04 12:29:48 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 21:06:17 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// Ensure all rows have the same width
 int	check_or_set_width(int *map_width, int line_width)
 {
 	if (*map_width == 0)
@@ -25,7 +24,6 @@ int	check_or_set_width(int *map_width, int line_width)
 	return (OK);
 }
 
-// Allocate one row of t_point
 t_point	*alloc_row(int line_width)
 {
 	t_point	*row;
@@ -36,7 +34,6 @@ t_point	*alloc_row(int line_width)
 	return (row);
 }
 
-// Fill one row from the split values
 void	fill_row(t_point *row, char **values, int current_height)
 {
 	int		x;
@@ -51,7 +48,6 @@ void	fill_row(t_point *row, char **values, int current_height)
 	}
 }
 
-// Parse one line into a row and append to rows_list
 int	parse_and_add_row(t_list **rows_list,
 	char *line, int current_height, int *map_width)
 {

@@ -6,13 +6,12 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:34:36 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/03 21:00:23 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 21:06:30 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// Count the number of extracted values (width of map)
 int	word_count(char **values)
 {
 	int	i;

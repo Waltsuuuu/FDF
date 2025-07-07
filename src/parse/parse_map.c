@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:40:26 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/05 22:17:12 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 21:06:38 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ t_map	*init_map_variables(void)
 	return (map);
 }
 
-// Read all lines, build up the linked list of rows
 t_list	*read_map_rows(int fd, int *map_width, int *current_height)
 {
 	t_list	*rows_list;
@@ -91,7 +90,6 @@ t_list	*read_map_rows(int fd, int *map_width, int *current_height)
 	return (rows_list);
 }
 
-// Turn the linked list into the final array of point-rows
 t_point	**convert_list_to_2d_points_array(t_list *rows_list, int current_height)
 {
 	t_point	**points;
