@@ -72,16 +72,16 @@ PRINTF_SRCS = \
 SRC_DIR = src
 FDF_SRCS = \
 	$(SRC_DIR)/main.c \
-	$(SRC_DIR)/parse_map/parse_map.c \
-	$(SRC_DIR)/parse_map/parse_map_utils.c \
-	$(SRC_DIR)/parse_map/parse_map_row_utils.c \
+	$(SRC_DIR)/parse/parse_map.c \
+	$(SRC_DIR)/parse/parse_map_utils.c \
+	$(SRC_DIR)/parse/parse_map_row_utils.c \
 	$(SRC_DIR)/init_mlx.c \
+	$(SRC_DIR)/transform/projection.c \
+	$(SRC_DIR)/transform/scale_and_offset.c \
+	$(SRC_DIR)/render/draw_pixel.c \
+	$(SRC_DIR)/render/draw_line.c \
+	$(SRC_DIR)/render/draw_map.c \
 	$(SRC_DIR)/test_functions/map_test.c \
-	$(SRC_DIR)/projection.c \
-	$(SRC_DIR)/scale_and_offset.c \
-	$(SRC_DIR)/draw_pixel.c \
-	$(SRC_DIR)/draw_line.c \
-	$(SRC_DIR)/draw_map.c \
 	$(SRC_DIR)/cleanup.c 
 
 # === OBJS ===
