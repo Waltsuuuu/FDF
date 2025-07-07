@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 21:49:30 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/07 22:10:38 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:13:59 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	draw_line(t_vars *vars, t_point p0, t_point p1, int color)
 	line.y0 = p0.y;
 	line.x1 = p1.x;
 	line.y1 = p1.y;
-
 	init_line(&line);
 	while (1)
 	{

@@ -6,18 +6,18 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:50:30 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/07 21:51:28 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:15:34 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_vars vars;
+	t_vars	vars;
 
-	if(argc != 2)
-		return 0;
+	if (argc != 2)
+		return (0);
 	ft_bzero(&vars, sizeof vars);
 	vars.map = open_and_parse_map(argv[1]);
 	if (!vars.map)
@@ -29,6 +29,6 @@ int main(int argc, char **argv)
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
 	mlx_key_hook(vars.win, handle_keypress, &vars);
 	mlx_hook(vars.win, 17, 0, handle_x_click, &vars);
-    mlx_loop(vars.mlx);
+	mlx_loop(vars.mlx);
 	return (EXIT_SUCCESS);
 }
