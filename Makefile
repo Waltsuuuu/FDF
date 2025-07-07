@@ -81,7 +81,7 @@ FDF_SRCS = \
 	$(SRC_DIR)/render/draw_pixel.c \
 	$(SRC_DIR)/render/draw_line.c \
 	$(SRC_DIR)/render/draw_map.c \
-	$(SRC_DIR)/test_functions/map_test.c \
+	$(SRC_DIR)/hooks.c \
 	$(SRC_DIR)/cleanup.c 
 
 # === OBJS ===

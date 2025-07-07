@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/07 21:16:48 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 21:53:58 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 # define OK		0
 # define ERROR	-1
+
+# define ESC_KEY 65307
 
 typedef struct s_point
 {
@@ -109,7 +111,11 @@ void	init_line(t_line *line, int x0, int y0, int x1, int y1);
 void	draw_map(t_vars *vars);
 void	draw_neighbors(t_vars *vars, int x, int y, t_point current);
 
+/* -- hooks.c -- */
+int		handle_keypress(int keycode, t_vars *vars);
+int		handle_x_click(t_vars *vars);
+
 /* -- cleanup.c -- */
-int		free_and_destroy(t_vars *vars);
+void	free_and_destroy(t_vars *vars);
 
 #endif

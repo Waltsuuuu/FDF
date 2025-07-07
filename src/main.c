@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:50:30 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/07 21:07:21 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 21:51:28 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ int main(int argc, char **argv)
 	if (!vars.map)
 		return (EXIT_FAILURE);
 	if ((init_mlx(&vars, WIN_WIDTH, WIN_HEIGHT, "FDF") == ERROR))
-		return (free_and_destroy(&vars));
+		free_and_destroy(&vars);
 	calculate_scale_and_offset(&vars);
 	draw_map(&vars);
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
+	mlx_key_hook(vars.win, handle_keypress, &vars);
+	mlx_hook(vars.win, 17, 0, handle_x_click, &vars);
     mlx_loop(vars.mlx);
-	free_and_destroy(&vars);
 	return (EXIT_SUCCESS);
 }
