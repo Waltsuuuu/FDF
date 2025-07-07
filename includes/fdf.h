@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/07 23:06:39 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 23:27:40 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <math.h> 
 
 # define Z_SCALE	0.5
-# define WIN_WIDTH	1280
-# define WIN_HEIGHT	720
+# define WIN_WIDTH	2560
+# define WIN_HEIGHT	1440
 # define ISO_ANGLE	0.52399
 
 # define OK		0
@@ -31,6 +31,8 @@
 # define ESC_KEY 65307
 # define KEY_UP 65362
 # define KEY_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
 # define KEY_Q 113
 # define KEY_E 101
 
@@ -122,6 +124,7 @@ void	draw_neighbors(t_vars *vars, int x, int y, t_point current);
 /* -- hooks.c -- */
 int		handle_keypress(int keycode, t_vars *vars);
 int		handle_x_click(t_vars *vars);
+void	handle_arrow_key(int keycode, t_vars *vars);
 void	redraw(t_vars *vars);
 
 /* -- cleanup.c -- */
