@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 14:50:30 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/06 19:24:05 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 17:13:05 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int main(int argc, char **argv)
 	if ((init_mlx(&vars, WIN_WIDTH, WIN_HEIGHT, "FDF") == ERROR))
 		return (free_and_destroy(&vars));
 	print_map(vars.map); // Testing only
+	calculate_scale_and_offset(&vars);
 	draw_map(&vars);
 	ft_printf("\nscale = %d\n", vars.scale); // Testing only
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);

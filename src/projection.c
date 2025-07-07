@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 19:02:36 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/07 16:45:19 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/07 17:12:42 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_point	project_iso(t_point point, t_vars *vars)
 	float	y;
 	float	z;
 
-	calculate_scale_and_offset(vars);
 	x = point.x * vars->scale;
 	y = point.y * vars->scale;
 	z = point.z * Z_SCALE * vars->scale;
