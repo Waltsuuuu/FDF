@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 21:49:30 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/07 22:13:59 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/08 22:10:25 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ void	draw_line(t_vars *vars, t_point p0, t_point p1, int color)
 		if (line.x0 == line.x1 && line.y0 == line.y1)
 			break ;
 		line.e2 = 2 * line.err;
-		if (line.e2 >= line.dy)
-		{
-			line.err += line.dy;
-			line.x0 += line.sx;
-		}
 		if (line.e2 <= line.dx)
 		{
 			line.err += line.dx;
 			line.y0 += line.sy;
+		}
+		if (line.e2 >= line.dy)
+		{
+			line.err += line.dy;
+			line.x0 += line.sx;
 		}
 	}
 }
