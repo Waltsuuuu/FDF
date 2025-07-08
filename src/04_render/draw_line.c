@@ -6,20 +6,20 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 21:49:30 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/08 22:10:25 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/08 22:22:54 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_line(t_vars *vars, t_point p0, t_point p1, int color)
+void	draw_line(t_vars *vars, t_point start, t_point end, int color)
 {
 	t_line	line;
 
-	line.x0 = p0.x;
-	line.y0 = p0.y;
-	line.x1 = p1.x;
-	line.y1 = p1.y;
+	line.x0 = start.x;
+	line.y0 = start.y;
+	line.x1 = end.x;
+	line.y1 = end.y;
 	init_line(&line);
 	while (1)
 	{
