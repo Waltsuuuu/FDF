@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:40:26 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/09 16:50:48 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/09 17:49:05 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,16 @@ t_map	*open_and_parse_map(const char *path)
 	}
 	map = parse_map(fd);
 	if (!map)
-		printf("ERROR: Map parsing error.\n");
+	{
+		ft_printf("ERROR: Map parsing error.\n");
+		return (NULL);
+	}
+	if (map->height <= 1)
+	{
+		ft_printf("ERROR: Map needs to have more than 1 row\n");
+		free_map(map);
+		return (NULL);
+	}
 	close(fd);
 	return (map);
 }
