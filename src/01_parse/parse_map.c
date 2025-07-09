@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:40:26 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/07 21:06:38 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/09 15:09:13 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ t_map	*open_and_parse_map(const char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
+	{
+		perror("Invalid fd");
 		return (NULL);
+	}
 	map = parse_map(fd);
 	close(fd);
 	return (map);

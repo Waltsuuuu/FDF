@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/07 23:27:40 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/09 15:11:19 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include "ft_printf.h"
 # include "mlx.h"
 # include <fcntl.h>
-# include <math.h> 
+# include <math.h>
+# include <stdio.h>
 
 # define Z_SCALE	0.5
 # define WIN_WIDTH	2560
