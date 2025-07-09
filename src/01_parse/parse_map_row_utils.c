@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:37:05 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/09 18:02:47 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/09 19:00:07 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_or_set_width(int *map_width, int line_width)
 		*map_width = line_width;
 	if (line_width <= 1)
 	{
-		printf("ERROR: Invalid row width! Row needs a minimum of 2 columns.\n");
+		ft_printf("ERROR: Invalid row width! Row needs a minimum of 2 columns.\n");
 		return (ERROR);
 	}
 	else if (*map_width != line_width)
@@ -33,7 +33,7 @@ t_point	*alloc_row(int line_width)
 {
 	t_point	*row;
 
-	row = malloc((sizeof (* row)) * line_width);
+	row = malloc((sizeof (*row)) * line_width);
 	if (!row)
 		return (NULL);
 	return (row);
