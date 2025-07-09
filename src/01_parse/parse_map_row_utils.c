@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:37:05 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/09 15:31:00 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/09 15:40:40 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	fill_row(t_point *row, char **values, int current_height)
 		row[x].z = ft_atoi(values[x]);
 		if (row[x].z > MAX_SAFE_Z || row[x].z < MIN_SAFE_Z)
 		{
-			ft_printf("ERROR: Point (%d, %d) z-value too large\n", row[x].x, row[x].y);
+			ft_printf("ERROR: Point (%d, %d) z-value too large\n",
+				row[x].x, row[x].y);
 			return (ERROR);
 		}
 		x++;
