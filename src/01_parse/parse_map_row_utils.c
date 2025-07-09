@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:37:05 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/09 17:44:03 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/09 18:02:47 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_point	*alloc_row(int line_width)
 {
 	t_point	*row;
 
-	row = malloc(sizeof * row * line_width);
+	row = malloc((sizeof (* row)) * line_width);
 	if (!row)
 		return (NULL);
 	return (row);
