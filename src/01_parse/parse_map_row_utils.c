@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:37:05 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/09 15:15:32 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/09 15:31:00 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_point	*alloc_row(int line_width)
 	return (row);
 }
 
-void	fill_row(t_point *row, char **values, int current_height)
+int	fill_row(t_point *row, char **values, int current_height)
 {
 	int		x;
 
@@ -44,8 +44,14 @@ void	fill_row(t_point *row, char **values, int current_height)
 		row[x].x = x;
 		row[x].y = current_height;
 		row[x].z = ft_atoi(values[x]);
+		if (row[x].z > MAX_SAFE_Z || row[x].z < MIN_SAFE_Z)
+		{
+			ft_printf("ERROR: Point (%d, %d) z-value too large\n", row[x].x, row[x].y);
+			return (ERROR);
+		}
 		x++;
 	}
+	return (OK);
 }
 
 int	parse_and_add_row(t_list **rows_list,
@@ -55,6 +61,7 @@ int	parse_and_add_row(t_list **rows_list,
 	int		line_width;
 	t_point	*row;
 	t_list	*node;
+	int		row_check;
 
 	values = ft_split(line, ' ');
 	if (!values)
@@ -65,7 +72,9 @@ int	parse_and_add_row(t_list **rows_list,
 	row = alloc_row(line_width);
 	if (!row)
 		return (free_row_line_values(NULL, line, values));
-	fill_row(row, values, current_height);
+	row_check = fill_row(row, values, current_height);
+	if (row_check == ERROR)
+		return (free_row_line_values(NULL, line, values));
 	node = ft_lstnew(row);
 	if (!node)
 		return (free_row_line_values(row, line, values));

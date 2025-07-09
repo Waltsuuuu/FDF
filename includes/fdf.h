@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/09 15:11:19 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/09 15:30:21 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 
 # define OK		0
 # define ERROR	-1
+
+#define MAX_SAFE_Z 1000000
+#define MIN_SAFE_Z -1000000
 
 # define ESC_KEY 65307
 # define KEY_UP 65362
@@ -98,7 +101,7 @@ void	free_map(t_map *map);
 /* -- parse_map_row_utils.c -- */
 int		check_or_set_width(int *map_width, int line_width);
 t_point	*alloc_row(int line_width);
-void	fill_row(t_point *row, char **values, int current_height);
+int	fill_row(t_point *row, char **values, int current_height);
 int		parse_and_add_row(t_list **rows_list, char *line,
 			int current_height, int *map_width);
 
