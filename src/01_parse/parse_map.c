@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 15:40:26 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/09 16:10:36 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/09 16:50:48 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_map	*open_and_parse_map(const char *path)
 		return (NULL);
 	}
 	map = parse_map(fd);
+	if (!map)
+		printf("ERROR: Map parsing error.\n");
 	close(fd);
 	return (map);
 }

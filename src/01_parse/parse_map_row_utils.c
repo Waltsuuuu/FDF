@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:37:05 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/09 16:11:44 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/09 16:47:10 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ int	check_or_set_width(int *map_width, int line_width)
 {
 	if (*map_width == 0)
 		*map_width = line_width;
-	if (line_width == 1)
+	if (line_width <= 1)
 	{
-		printf("ERROR: Invalid map width! Map needs a minimum of 2 columns\n");
+		printf("ERROR: Invalid map width! Map needs a minimum of 2 columns.\n");
 		return (ERROR);
 	}
 	else if (*map_width != line_width)
 	{
-		ft_printf("MAP PARSING ERROR: Inconsistent line length!\n");
+		ft_printf("ERROR: Inconsistent row width!\n");
 		return (ERROR);
 	}
 	return (OK);
