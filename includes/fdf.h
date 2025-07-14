@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 14:43:55 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/09 18:59:14 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/14 21:44:29 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ typedef struct s_line
 	int	err;
 	int	e2;
 }			t_line;
+
+/* -- main.c -- */
+int		check_file_type(char *path);
+void	mlx_function_calls(t_vars *vars);
 
 /* -- parse_map.c -- */
 t_map	*open_and_parse_map(const char *path);
