@@ -1,7 +1,3 @@
-MLX_DIR := minilibx-linux
-MLX_LIB := $(MLX_DIR)/libmlx_Linux.a
-MLX_FLAGS := -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
-
 # === Compiler & Flags ===
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iincludes -I$(MLX_DIR)
@@ -76,28 +72,31 @@ FDF_SRCS = \
 	$(SRC_DIR)/01_parse/parse_map_utils.c \
 	$(SRC_DIR)/01_parse/parse_map_row_utils.c \
 	$(SRC_DIR)/02_initialize/init_mlx.c \
-	$(SRC_DIR)/03_transform/projection.c \
 	$(SRC_DIR)/03_transform/scale_and_offset.c \
 	$(SRC_DIR)/04_render/draw_pixel.c \
 	$(SRC_DIR)/04_render/draw_line.c \
 	$(SRC_DIR)/04_render/draw_map.c \
+	$(SRC_DIR)/04_render/projection.c \
 	$(SRC_DIR)/05_controls/hooks.c \
-	$(SRC_DIR)/06_cleanup/cleanup.c 
+	$(SRC_DIR)/06_cleanup/cleanup.c
+
+# === MLX ===
+MLX_DIR := minilibx-linux
+MLX_LIB := $(MLX_DIR)/libmlx_Linux.a
+MLX_FLAGS := -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 # === OBJS ===
 SRCS = $(FDF_SRCS) $(GNL_SRCS) $(LIBFT_SRCS) $(PRINTF_SRCS)
 OBJS = $(SRCS:.c=.o)
 
 # === Build Targets ===
-all: minilibx $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJS) minilibx
+$(NAME): $(OBJS) $(MLX_LIB)
 	$(CC) $(CFLAGS) $(OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
 
-minilibx: $(MLX_LIB)
-
-minilibx-linux/libmlx_Linux.a:
-	$(MAKE) -C minilibx-linux
+$(MLX_LIB):
+	$(MAKE) -C $(MLX_DIR)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
