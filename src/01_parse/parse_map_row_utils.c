@@ -6,7 +6,7 @@
 /*   By: wheino <wheino@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:37:05 by wheino            #+#    #+#             */
-/*   Updated: 2025/07/09 19:00:07 by wheino           ###   ########.fr       */
+/*   Updated: 2025/07/14 22:00:21 by wheino           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	check_or_set_width(int *map_width, int line_width)
 		*map_width = line_width;
 	if (line_width <= 1)
 	{
-		ft_printf("ERROR: Invalid row width! Row needs a minimum of 2 columns.\n");
+		ft_printf("ERROR: Invalid row width!");
+		ft_printf(" Row needs a minimum of 2 columns.\n");
 		return (ERROR);
 	}
 	else if (*map_width != line_width)
@@ -51,7 +52,7 @@ int	fill_row(t_point *row, char **values, int current_height)
 		row[x].z = ft_atoi(values[x]);
 		if (row[x].z > MAX_SAFE_Z || row[x].z < MIN_SAFE_Z)
 		{
-			ft_printf("ERROR: Point (%d, %d) z-value too large\n",
+			ft_printf("ERROR: Point (%d, %d) z-value too large!\n",
 				row[x].x, row[x].y);
 			return (ERROR);
 		}
